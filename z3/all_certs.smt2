@@ -1,0 +1,156 @@
+; NS-Lean4 Z3 Certificates
+; Auto-generated from params.json
+; Logic: QF_LRA (quantifier-free linear real arithmetic)
+(set-logic QF_LRA)
+
+; === CERT: K_t40_gt_1 ===
+; K(Re=6400, t=40) = 37.72 > 1
+(push)
+(declare-const K Real)
+(assert (= K 37.72))
+(assert (> K 1.0))
+(check-sat)
+(pop)
+
+; === CERT: K_crossover ===
+; K crosses 1: K(t≈5)=0.92 < 1 and K(t≈14)=1.74 > 1
+(push)
+(declare-const K_early Real)
+(declare-const K_late Real)
+(assert (= K_early 0.92))
+(assert (= K_late 1.74))
+(assert (< K_early 1.0))
+(assert (> K_late 1.0))
+(check-sat)
+(pop)
+
+; === CERT: convergence_ratio_bounded ===
+; ratio(256/128) = 1.0995 < 1.3
+(push)
+(declare-const r Real)
+(assert (= r 1.0995))
+(assert (< r 1.3))
+(assert (> r 1.0))
+(check-sat)
+(pop)
+
+; === CERT: convergence_ratios_decreasing ===
+; ratio(128/64)=1.1701 > ratio(256/128)=1.0995 (trending toward 1)
+(push)
+(declare-const r1 Real)
+(declare-const r2 Real)
+(assert (= r1 1.1701))
+(assert (= r2 1.0995))
+(assert (> r1 r2))
+(assert (> r2 1.0))
+(check-sat)
+(pop)
+
+; === CERT: onset_ft_strictly_increasing ===
+; final/trough strictly increases with Re across onset table
+(push)
+(declare-const ft_0 Real)
+(declare-const ft_1 Real)
+(declare-const ft_2 Real)
+(declare-const ft_3 Real)
+(declare-const ft_4 Real)
+(declare-const ft_5 Real)
+(declare-const ft_6 Real)
+(declare-const ft_7 Real)
+(declare-const ft_8 Real)
+(assert (= ft_0 0.9))
+(assert (= ft_1 1.1))
+(assert (= ft_2 1.9))
+(assert (= ft_3 4.8))
+(assert (= ft_4 6.0))
+(assert (= ft_5 7.0))
+(assert (= ft_6 7.8))
+(assert (= ft_7 8.8))
+(assert (= ft_8 9.8))
+(assert (< ft_0 ft_1))
+(assert (< ft_1 ft_2))
+(assert (< ft_2 ft_3))
+(assert (< ft_3 ft_4))
+(assert (< ft_4 ft_5))
+(assert (< ft_5 ft_6))
+(assert (< ft_6 ft_7))
+(assert (< ft_7 ft_8))
+(check-sat)
+(pop)
+
+; === CERT: staircase_peaks_increasing ===
+; K at successive peaks increases (ratchet property)
+(push)
+(declare-const peak_0 Real)
+(declare-const peak_1 Real)
+(declare-const peak_2 Real)
+(declare-const peak_3 Real)
+(assert (= peak_0 6.9))
+(assert (= peak_1 32.21))
+(assert (= peak_2 36.79))
+(assert (= peak_3 37.72))
+(assert (< peak_0 peak_1))
+(assert (< peak_1 peak_2))
+(assert (< peak_2 peak_3))
+(check-sat)
+(pop)
+
+; === CERT: Lambda_grows_Omega_decays ===
+; Λ: 391.59→1950.07 (grows), Ω: 9.99→6.8841 (decays)
+(push)
+(declare-const L20 Real)
+(declare-const L40 Real)
+(declare-const O20 Real)
+(declare-const O40 Real)
+(assert (= L20 391.59))
+(assert (= L40 1950.07))
+(assert (= O20 9.99))
+(assert (= O40 6.8841))
+(assert (> L40 L20))
+(assert (< O40 O20))
+(check-sat)
+(pop)
+
+; === CERT: subcritical_tame ===
+; Re ≤ 800 → final/trough ≤ 1.1
+(push)
+(declare-const ft_sub_0 Real)
+(declare-const ft_sub_1 Real)
+(assert (= ft_sub_0 0.9))
+(assert (<= ft_sub_0 1.1))
+(assert (= ft_sub_1 1.1))
+(assert (<= ft_sub_1 1.1))
+(check-sat)
+(pop)
+
+; === CERT: K_def_consistent ===
+; K = Λ·η: 1950.07 * 0.019344 = 37.7222 ≈ 37.72
+(push)
+(declare-const K_computed Real)
+(declare-const K_reported Real)
+(assert (= K_computed 37.722154079999996))
+(assert (= K_reported 37.72))
+; Difference < 0.5 (rational approximation tolerance)
+(assert (< (- K_computed K_reported) 0.5))
+(assert (> (- K_computed K_reported) (- 0.5)))
+(check-sat)
+(pop)
+
+; === CERT: regime_boundaries_ordered ===
+; 0 < regime1_upper < regime2_lower < regime2_upper < regime3_lower
+(push)
+(declare-const r1u Real)
+(declare-const r2l Real)
+(declare-const r2u Real)
+(declare-const r3l Real)
+(assert (= r1u 800))
+(assert (= r2l 1600))
+(assert (= r2u 4800))
+(assert (= r3l 5600))
+(assert (> r1u 0))
+(assert (< r1u r2l))
+(assert (< r2l r2u))
+(assert (< r2u r3l))
+(check-sat)
+(pop)
+

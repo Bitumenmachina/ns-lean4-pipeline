@@ -1,0 +1,42 @@
+{
+  "K_t40_gt_1": {
+    "status": "sat",
+    "index": 0
+  },
+  "K_crossover": {
+    "status": "sat",
+    "index": 1
+  },
+  "convergence_ratio_bounded": {
+    "status": "sat",
+    "index": 2
+  },
+  "convergence_ratios_decreasing": {
+    "status": "sat",
+    "index": 3
+  },
+  "onset_ft_strictly_increasing": {
+    "status": "sat",
+    "index": 4
+  },
+  "staircase_peaks_increasing": {
+    "status": "sat",
+    "index": 5
+  },
+  "Lambda_grows_Omega_decays": {
+    "status": "sat",
+    "index": 6
+  },
+  "subcritical_tame": {
+    "status": "sat",
+    "index": 7
+  },
+  "K_def_consistent": {
+    "status": "sat",
+    "index": 8
+  },
+  "regime_boundaries_ordered": {
+    "status": "sat",
+    "index": 9
+  }
+}

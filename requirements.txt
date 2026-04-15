@@ -1,0 +1,12 @@
+# Pipeline dependencies (Python >=3.12)
+numpy>=2.0
+h5py>=3.0
+matplotlib>=3.5
+z3-solver>=4.12
+tabulate>=0.9
+
+# DNS solver (Phase 10b) additionally requires:
+# - Rust toolchain (rustc >= 1.94)
+# - FFTW3 (system package: fftw3-devel or libfftw3-dev)
+# - maturin >= 1.0 (pip install maturin)
+# Build: cd solver/ffi-fftw && maturin develop --release

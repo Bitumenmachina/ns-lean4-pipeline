@@ -1,0 +1,14 @@
+[package]
+name = "fftw_training"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "fftw_training"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.28", features = ["extension-module"] }
+numpy = "0.28"
+num-complex = "0.4"
+fftw-sys = { version = "0.8", default-features = false, features = ["system"] }

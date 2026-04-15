@@ -1,0 +1,61 @@
+name: Verify Pipeline
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lean-build:
+    name: Lean 4 Build (0 sorry)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: leanprover/lean-action@v1
+        with:
+          build-args: ""
+          lake-package-directory: lean
+
+  z3-verify:
+    name: Z3 Certificates (10/10 SAT)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install z3-solver
+        run: pip install z3-solver
+
+      - name: Run Z3 certificates
+        run: python3 z3/run_z3.py
+
+      - name: Verify all SAT
+        run: |
+          python3 -c "
+          import json
+          with open('z3/results.json') as f:
+              results = json.load(f)
+          total = len(results)
+          sat = sum(1 for r in results if r.get('status') == 'sat' or r.get('result') == 'sat')
+          print(f'{sat}/{total} SAT')
+          assert sat == total, f'FAIL: {total - sat} certificates not SAT'
+          "
+
+  sorry-check:
+    name: Zero Sorry Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check for sorry in theorems
+        run: |
+          count=$(grep -c '^\s*sorry' lean/NSLean4/NSTheorems.lean 2>/dev/null || echo "0")
+          echo "sorry count: $count"
+          if [ "$count" -ne "0" ]; then
+            echo "FAIL: found $count sorry in NSTheorems.lean"
+            exit 1
+          fi

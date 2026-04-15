@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this pipeline or its results, please cite as below."
+title: "ns-lean4-pipeline: DNS-to-Lean4 Verification Pipeline for Navier-Stokes Regularity"
+type: software
+authors:
+  - family-names: Roediger
+    given-names: Adam
+    affiliation: "Live Oak Legacy Builders LLC"
+  - family-names: Moriarty
+    given-names: Patrick
+    affiliation: "Bitumen Machina LLC"
+date-released: "2026-04-15"
+version: "1.0.0"
+doi: "10.5281/zenodo.19584003"
+license: MIT
+repository-code: "https://github.com/Bitumenmachina/ns-lean4-pipeline"
+keywords:
+  - navier-stokes
+  - lean4
+  - formal-verification
+  - z3
+  - dns
+  - vorticity
+  - regularity
+  - direction-field
+  - scaling-invariant
+abstract: >
+  End-to-end pipeline from pseudospectral DNS through Z3-certified arithmetic
+  bounds to Lean 4 formal proofs. Applied to the measurement of a scaling
+  invariant at the interface between antiparallel vortex tubes in 3D
+  Navier-Stokes reconnection: the product of vorticity magnitude and
+  direction-field gradient is grid-independent across a 4x resolution range.
+  Companion paper formalises a conditional regularity theorem for the viscous
+  term. 13 theorems, 0 sorry on Lean 4 v4.29.0 + Mathlib; 10/10 Z3 SMT
+  certificates verified.

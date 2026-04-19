@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -40,7 +40,7 @@ jobs:
           with open('z3/results.json') as f:
               results = json.load(f)
           total = len(results)
-          sat = sum(1 for r in results if r.get('status') == 'sat' or r.get('result') == 'sat')
+          sat = sum(1 for r in results.values() if r.get('status') == 'sat' or r.get('result') == 'sat')
           print(f'{sat}/{total} SAT')
           assert sat == total, f'FAIL: {total - sat} certificates not SAT'
           "
